@@ -123,8 +123,8 @@ fn restart_level(
 
         let coords = extract_intgrid_coordinates(
             level_instances,
-            &vec!["Objective_Tiles".to_string()],
-            &vec![IntGridValues::SpawnPoint], // 5 is the intgrid value for spawn point
+            &["Objective_Tiles".to_string()],
+            &[IntGridValues::SpawnPoint], // 5 is the intgrid value for spawn point
         );
 
         assert!(
@@ -186,9 +186,9 @@ fn level_selection(
 }
 
 fn extract_intgrid_coordinates(
-    layer_instances: &Vec<LayerInstance>,
-    layer_names: &Vec<String>,
-    values_of_interest: &Vec<IntGridValues>,
+    layer_instances: &[LayerInstance],
+    layer_names: &[String],
+    values_of_interest: &[IntGridValues],
 ) -> Vec<GridCoords> {
     let mut grid_coords: Vec<GridCoords> = Vec::new();
     for layer_instance in layer_instances.iter() {
@@ -200,7 +200,7 @@ fn extract_intgrid_coordinates(
             // check where the value is in the layer.int_grid_csv
             let new_coords = layer_instance.int_grid_csv.iter().enumerate().filter(|(_, v)| **v == *value as i32).map(|(i, _)| {
                     int_grid_index_to_grid_coords(i, layer_instance.c_wid as u32,
-                            layer_instance.c_hei as u32,).expect("int_grid_csv indices should be within the bounds of 0..(layer_width * layer_height)").into()
+                            layer_instance.c_hei as u32,).expect("int_grid_csv indices should be within the bounds of 0..(layer_width * layer_height)")
         }).collect::<Vec<GridCoords>>();
             grid_coords.extend(new_coords);
         }
