@@ -1,4 +1,5 @@
 pub const TILE_SIZE: i32 = 16;
+pub const GAMEPAD_SENSITIVITY_THRESHOLD: f32 = 0.5;
 
 #[derive(Copy, Clone, PartialEq, Eq, Debug)]
 pub enum IntGridValues {
