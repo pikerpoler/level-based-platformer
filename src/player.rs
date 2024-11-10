@@ -1,13 +1,14 @@
 use bevy::prelude::*;
 use bevy_ecs_ldtk::prelude::*;
 use bevy_rapier2d::prelude::*;
+use leafwing_input_manager::prelude::*;
 
+use crate::audio::AudioEvent;
 use crate::climbing::Climber;
 use crate::constants::GAMEPAD_SENSITIVITY_THRESHOLD;
 use crate::{colliders::ColliderBundle, ground_detection::GroundDetection};
 
 use crate::input::PlayerAction;
-use leafwing_input_manager::prelude::*;
 
 #[derive(Copy, Clone, Eq, PartialEq, Debug, Default, Component)]
 pub struct Player;
@@ -74,6 +75,7 @@ fn handle_axis_movement(input: &mut ActionState<PlayerAction>) {
 fn player_movement(
     mut input: Query<&mut ActionState<PlayerAction>, With<Player>>,
     mut query: Query<(&mut Velocity, &mut Climber, &GroundDetection), With<Player>>,
+    mut audio_event: EventWriter<AudioEvent>,
 ) {
     let mut input = input.single_mut().to_owned();
     handle_axis_movement(&mut input);
@@ -116,6 +118,7 @@ fn player_movement(
         if input.just_pressed(&PlayerAction::Jump)
             && (ground_detection.on_ground || climber.climbing)
         {
+            audio_event.send(AudioEvent::Jump);
             velocity.linvel.y = 400.;
             climber.climbing = false;
         }

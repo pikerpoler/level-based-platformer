@@ -3,6 +3,7 @@ use bevy_ecs_ldtk::prelude::*;
 use bevy_ecs_ldtk::utils::int_grid_index_to_grid_coords;
 use bevy_rapier2d::prelude::*;
 
+use crate::audio::AudioEvent;
 use crate::colliders::SensorBundle;
 use crate::constants::{IntGridValues, TILE_SIZE};
 use crate::player::Player;
@@ -145,6 +146,7 @@ pub fn finish_level(
     goals: Query<Entity, With<Goal>>,
     mut collisions: EventReader<CollisionEvent>,
     mut next_level: EventWriter<NextLevel>,
+    mut audio_event: EventWriter<AudioEvent>,
 ) {
     for collision in collisions.read() {
         if let CollisionEvent::Started(collider_a, collider_b, _) = collision {
@@ -152,6 +154,7 @@ pub fn finish_level(
                 || (players.get(*collider_a).is_ok() && goals.get(*collider_b).is_ok())
             {
                 next_level.send(NextLevel);
+                audio_event.send(AudioEvent::LevelComplete);
             }
         }
     }
