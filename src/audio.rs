@@ -27,7 +27,7 @@ impl Plugin for AudioPlugin {
 fn setup(asset_server: Res<AssetServer>, mut commands: Commands) {
     commands
         .spawn(AudioBundle {
-            source: asset_server.load("audio/background.ogg"),
+            source: asset_server.load("audio/ambient_music_ai.ogg"),
             settings: PlaybackSettings {
                 volume: Volume::default(),
                 mode: PlaybackMode::Loop,
