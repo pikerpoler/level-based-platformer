@@ -39,7 +39,7 @@ fn setup_controls(mut commands: Commands) {
     input_map.insert_dual_axis(PlayerAction::Move, GamepadStick::LEFT);
     commands
         .spawn(InputManagerBundle::with_map(input_map))
-        .insert(Player);
+        .insert(Player::default());
 }
 
 impl Plugin for InputPlugin {

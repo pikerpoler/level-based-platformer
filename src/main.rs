@@ -10,6 +10,7 @@ mod game_flow;
 mod ground_detection;
 mod input;
 mod player;
+mod utils;
 mod walls;
 
 fn main() {

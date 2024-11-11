@@ -23,3 +23,36 @@ impl From<i32> for IntGridValues {
         }
     }
 }
+
+pub mod sprites {
+    pub struct FrameRange {
+        pub first: usize,
+        pub last: usize,
+    }
+
+    pub mod fox {
+        use super::FrameRange;
+        pub const IDLE_FRAMES: FrameRange = FrameRange { first: 0, last: 3 };
+        pub const WALK_FRAMES: FrameRange = FrameRange { first: 6, last: 11 };
+        pub const CLIMB_FRAMES: FrameRange = FrameRange {
+            first: 12,
+            last: 15,
+        };
+        pub const CLIMB_FRAMES_IDLE: FrameRange = FrameRange {
+            first: 12,
+            last: 12,
+        };
+        pub const _DEATH_FRAMES: FrameRange = FrameRange {
+            first: 24,
+            last: 25,
+        };
+        pub const JUMP_UP_FRAMES: FrameRange = FrameRange {
+            first: 30,
+            last: 30,
+        };
+        pub const JUMP_DOWN_FRAMES: FrameRange = FrameRange {
+            first: 31,
+            last: 31,
+        };
+    }
+}
